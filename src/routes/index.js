@@ -3,4 +3,4 @@ const {Router}=require('express')
 
 const routes=Router()
 
-export default routes;
+module.exports= routes;
