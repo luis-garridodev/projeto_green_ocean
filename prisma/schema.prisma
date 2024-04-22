@@ -9,6 +9,50 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgres"
   url      = env("DATABASE_URL")
+}
+
+model profissionais_de_saude {
+  id                    Int        @id @default(autoincrement())
+  nome                  String
+  idade                 String
+  cpf                   String
+  data_de_nascimento    String
+  identificador         String
+  tipo_de_identificador String
+  especialidade         String
+  created_at            DateTime   @default(now())
+  updated_at            DateTime   @updatedAt
+  deleted_at            DateTime?
+  consulta              consulta[]
+}
+
+model paciente {
+  id                   Int       @id @default(autoincrement())
+  nome                 String
+  idade                String
+  cpf                  String
+  data_de_nascimento   String
+  numero_de_associacao String
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @updatedAt
+  deleted_at           DateTime?
+
+  consulta consulta[]
+}
+
+model consulta {
+  id                    Int                    @id @default(autoincrement())
+  paciente              paciente               @relation(fields: [paciente_id], references: [id])
+  paciente_id           Int
+  profissional_de_saude profissionais_de_saude @relation(fields: [profissional_id], references: [id])
+  profissional_id       Int
+  data_hora_consulta    DateTime?
+  data_finalizacao      DateTime?
+  local_consulta        String
+  url_consulta          String
+  created_at            DateTime               @default(now())
+  updated_at            DateTime               @updatedAt
+  deleted_at            DateTime?
 }
