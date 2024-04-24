@@ -1,46 +1,71 @@
-import { Request, Response } from "express";
-import { formatError } from "../services/error.service";
-import{countPaciente,getPacienteById,insertPaciente}from "../../src/repositories/paciente.repository"
-export async function countPacientes(Request,Response){
-  try{
-    const pacientes=await countPaciente()
-    return Response.status(200).send({pacientes})
-  } catch(error){
-    return formatError(error).httpResponse(Response);
-  } 
+const {
+  countPaciente,
+  getPacienteById,
+  insertPaciente,
+} = require("../../src/repositories/paciente.repository");
+ async function countPacientes(request, response) {
+  try {
+    const pacientes = await countPaciente();
+    return response.status(200).send({ pacientes });
+  } catch (error) {
+    console.log(error);
+  }
 }
-export async function insertPacientes(Request,Response){
-    const{nome,idade,cpf, data_de_nascimento,numero_de_associacao}=Request.body
-    try{
-        const pacientescreated=await insertPaciente({nome,idade,cpf, data_de_nascimento,numero_de_associacao})
+ async function insertPacientes(request, response) {
+  const { nome, idade, cpf, data_de_nascimento, numero_de_associacao } =
+    request.body;
+  try {
+    const pacientescreated = await insertPaciente({
+      nome,
+      idade,
+      cpf,
+      data_de_nascimento,
+      numero_de_associacao,
+    });
 
-    return Response.status(200).send(pacientescreated);
-    }catch(error){
-        return formatError(error, "paciente já registrado").httpResponse(Response);
-    }
+    return response.status(200).send(pacientescreated);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-export async function updatePacientes(Request,Response){
-    const{nome,idade,cpf, data_de_nascimento,numero_de_associacao}=Request.body
-    const{id}=Request.params
-    try{
-        const  getpaciente = await getPacienteById({ id: parseInt(id) });
-        const pacientescupdated=await updatePaciente({id:getpaciente.id,nome,idade,cpf, data_de_nascimento,numero_de_associacao})
+ async function updatePacientes(request, response) {
+  const { nome, idade, cpf, data_de_nascimento, numero_de_associacao } =
+    request.body;
+  const { id } = request.params;
+  try {
+    const getpaciente = await getPacienteById({ id: parseInt(id) });
+    const pacientescupdated = await updatePaciente({
+      id: getpaciente.id,
+      nome,
+      idade,
+      cpf,
+      data_de_nascimento,
+      numero_de_associacao,
+    });
 
-    return Response.status(200).send(pacientescupdated);
-    }catch(error){
-        return formatError(error, "paciente não encontrado").httpResponse(Response);
-    }
+    return response.status(200).send(pacientescupdated);
+  } catch (error) {
+    console.log(error);
+  }
 }
-export async function deletePacientes(Request,Response){
-    
-    const{id}=Request.params
-    try{
-        const  getpaciente = await getPacienteById({ id: parseInt(id) });
-        const pacientedeleted=await deletePaciente({id:getpaciente.id,nome,idade,cpf, data_de_nascimento,numero_de_associacao})
+ async function deletePacientes(request, response) {
+  const { id } = request.params;
+  try {
+    const getpaciente = await getPacienteById({ id: parseInt(id) });
+    const pacientedeleted = await deletePaciente({
+      id: getpaciente.id,
+      nome,
+      idade,
+      cpf,
+      data_de_nascimento,
+      numero_de_associacao,
+    });
 
-    return Response.status(200).send(pacientedeleted);
-    }catch(error){
-        return formatError(error, "paciente não encontrado").httpResponse(Response);
-    }
+    return response.status(200).send(pacientedeleted);
+  } catch (error) {
+    console.log(error);
+  }
 }
+
+module.exports={countPacientes,insertPacientes,updatePacientes,deletePacientes}

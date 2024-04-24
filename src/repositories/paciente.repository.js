@@ -1,14 +1,14 @@
-import { prismaclient } from "../services/prismaclient.service";
+const { prismaclient } =require( "../services/prismaclient.service");
 
-export async function countPaciente() {
+ async function countPaciente() {
   return await prismaclient.paciente.findMany({ where: { deleted_at: null } });
 }
-export async function getPacienteById({ id }) {
+ async function getPacienteById({ id }) {
   return await prismaclient.paciente.findFirstOrThrow({
     where: { id },
   });
 }
-export async function insertPaciente({
+ async function insertPaciente({
   nome,
   idade,
   cpf,
@@ -25,7 +25,7 @@ export async function insertPaciente({
     },
   });
 }
-export async function updatePaciente({
+ async function updatePaciente({
   id,
   nome,
   idade,
@@ -42,7 +42,7 @@ export async function updatePaciente({
     numero_de_associacao: numero_de_associacao,
   });
 }
-export async function deletePaciente({ id }) {
+ async function deletePaciente({ id }) {
   return await prismaclient.paciente.update({
     where: { id },
     data: { deleted_at: new Date().toISOString() },
@@ -53,3 +53,4 @@ export async function deletePaciente({ id }) {
     numero_de_associacao: true,
   });
 }
+module.exports={countPaciente,getPacienteById,insertPaciente,updatePaciente,deletePaciente}

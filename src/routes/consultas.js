@@ -1,11 +1,15 @@
-import "express-async-errors";
-import { Router } from "express";
+const { Router } = require("express");
 
-import{countConsultas, insertConsultas,updateConsultas,deleteConsultas}from "../../src/controllers/consulta.controller"
-const routes=Router()
-routes.get('/',countConsultas);
-routes.post('/create',insertConsultas);
-routes.put('/update',updateConsultas);
-routes.put('/delete',deleteConsultas);
+const {
+  countConsultas,
+  insertConsultas,
+  updateConsultas,
+  deleteConsultas,
+} =require( "../../src/controllers/consulta.controller");
+const routes = Router();
+routes.get("/", countConsultas);
+routes.post("/create", insertConsultas);
+routes.put("/update", updateConsultas);
+routes.put("/delete", deleteConsultas);
 
-export{routes}
+module.exports={ routes };

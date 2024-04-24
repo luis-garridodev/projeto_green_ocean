@@ -1,13 +1,16 @@
-import "express-async-errors";
-import { Router } from "express";
+const { Router } = require("express");
 
-import{countProfissionals,insertProfissionals,updateProfissionals,
-    deleteProfissionals}from "../../src/controllers/ profissionais_de_saude.controller"
+const {
+  countProfissionals,
+  insertProfissionals,
+  updateProfissionals,
+  deleteProfissionals,
+} =require( "../../src/controllers/ profissionais_de_saude.controller");
 
-    const routes=Router()
-    routes.get('/',countProfissionals);
-    routes.post('/create',insertProfissionals);
-    routes.put('/update',updateProfissionals);
-    routes.put('/delete',deleteProfissionals);
-    
-    export{routes}
+const routes = Router();
+routes.get("/", countProfissionals);
+routes.post("/create", insertProfissionals);
+routes.put("/update", updateProfissionals);
+routes.put("/delete", deleteProfissionals);
+
+module.exports={ routes };
