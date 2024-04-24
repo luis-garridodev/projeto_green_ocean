@@ -2,7 +2,8 @@ const {
   countPaciente,
   getPacienteById,
   insertPaciente,
-  updatePaciente
+  updatePaciente,
+  deletePaciente
 } = require("../../src/repositories/paciente.repository");
 async function countPacientes(request, response) {
   try {
@@ -55,12 +56,8 @@ async function deletePacientes(request, response) {
   try {
     const getpaciente = await getPacienteById({ id: parseInt(id) });
     const pacientedeleted = await deletePaciente({
-      id: getpaciente.id,
-      nome,
-      idade,
-      cpf,
-      data_de_nascimento,
-      numero_de_associacao,
+      id: getpaciente.id
+     
     });
 
     return response.status(200).send(pacientedeleted);

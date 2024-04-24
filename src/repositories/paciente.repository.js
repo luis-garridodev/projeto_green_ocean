@@ -48,11 +48,13 @@ async function deletePaciente({ id }) {
   return await prismaclient.paciente.update({
     where: { id },
     data: { deleted_at: new Date().toISOString() },
-    nome: true,
-    idade: true,
-    cpf: true,
-    data_de_nascimento: true,
-    numero_de_associacao: true,
+    select: {
+      nome: true,
+      idade: true,
+      cpf: true,
+      data_de_nascimento: true,
+      numero_de_associacao: true,
+    },
   });
 }
 module.exports = {
