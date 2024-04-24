@@ -5,7 +5,7 @@ const {
   insertProfissionals,
   updateProfissionals,
   deleteProfissionals,
-} =require( "../../src/controllers/ profissionais_de_saude.controller");
+} =require( "../controllers/profissionais_de_saude.controller");
 
 const routes = Router();
 routes.get("/", countProfissionals);

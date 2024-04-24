@@ -6,15 +6,15 @@ const {
   deleteProfissional,
 } = require("../repositories/profissionais_de_saude.repository");
 
- async function countProfissionals(Request, Response) {
+async function countProfissionals(request, response) {
   try {
     const profissionais = await countProfissional();
-    return Response.status(200).send({ profissionais });
+    return response.status(200).send({ profissionais });
   } catch {
-    console.log(error);
+    return response.status(400).send(error);
   }
 }
- async function insertProfissionals(Request, Response) {
+async function insertProfissionals(request, response) {
   const {
     nome,
     idade,
@@ -32,13 +32,13 @@ const {
       tipo_de_identificador,
       especialidade,
     });
-    return Response.status(200).send(profissionais);
+    return response.status(200).send(profissionais);
   } catch (error) {
-    console.log(error);
+    return response.status(400).send(error);
   }
 }
- async function updateProfissionals(Request, Response) {
-  const { id } = Request.params;
+async function updateProfissionals(request, response) {
+  const { id } = request.params;
   const {
     nome,
     idade,
@@ -46,7 +46,7 @@ const {
     data_de_nascimento,
     tipo_de_identificador,
     especialidade,
-  } = Request.body;
+  } = request.body;
   try {
     const getpaciente = await countProfissionalById({ id: parseInt(id) });
     const profissionais = await updateProfissional({
@@ -58,13 +58,13 @@ const {
       tipo_de_identificador,
       especialidade,
     });
-    return Response.status(200).send(profissionais);
+    return response.status(200).send(profissionais);
   } catch (error) {
-    console.log(error);
+    return response.status(400).send(error);
   }
 }
- async function deleteProfissionals(Request, Response) {
-  const { id } = Request.params;
+async function deleteProfissionals(request, response) {
+  const { id } = request.params;
   try {
     const getprofissional = await countProfissionalById({ id: parseInt(id) });
     const profissionaledeleted = await deleteProfissional({
@@ -76,10 +76,15 @@ const {
       numero_de_associacao,
     });
 
-    return Response.status(200).send(profissionaledeleted);
+    return response.status(200).send(profissionaledeleted);
   } catch (error) {
-    console.log(error);
+    return response.status(400).send(error);
   }
 }
 
-module.exports={ countProfissionals,insertProfissionals,updateProfissionals,deleteProfissionals}
+module.exports = {
+  countProfissionals,
+  insertProfissionals,
+  updateProfissionals,
+  deleteProfissionals,
+};

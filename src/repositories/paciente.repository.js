@@ -1,14 +1,14 @@
-const { prismaclient } =require( "../services/prismaclient.service");
+const prismaclient = require("../services/prismaclient.service");
 
- async function countPaciente() {
+async function countPaciente() {
   return await prismaclient.paciente.findMany({ where: { deleted_at: null } });
 }
- async function getPacienteById({ id }) {
+async function getPacienteById({ id }) {
   return await prismaclient.paciente.findFirstOrThrow({
     where: { id },
   });
 }
- async function insertPaciente({
+async function insertPaciente({
   nome,
   idade,
   cpf,
@@ -25,7 +25,7 @@ const { prismaclient } =require( "../services/prismaclient.service");
     },
   });
 }
- async function updatePaciente({
+async function updatePaciente({
   id,
   nome,
   idade,
@@ -34,15 +34,17 @@ const { prismaclient } =require( "../services/prismaclient.service");
   numero_de_associacao,
 }) {
   return await prismaclient.paciente.update({
-    id: id,
-    nome: nome,
-    idade: idade,
-    cpf: cpf,
-    data_de_nascimento: data_de_nascimento,
-    numero_de_associacao: numero_de_associacao,
+    where: { id },
+    data: {
+      nome: nome,
+      idade: idade,
+      cpf: cpf,
+      data_de_nascimento: data_de_nascimento,
+      numero_de_associacao: numero_de_associacao,
+    },
   });
 }
- async function deletePaciente({ id }) {
+async function deletePaciente({ id }) {
   return await prismaclient.paciente.update({
     where: { id },
     data: { deleted_at: new Date().toISOString() },
@@ -53,4 +55,10 @@ const { prismaclient } =require( "../services/prismaclient.service");
     numero_de_associacao: true,
   });
 }
-module.exports={countPaciente,getPacienteById,insertPaciente,updatePaciente,deletePaciente}
+module.exports = {
+  countPaciente,
+  getPacienteById,
+  insertPaciente,
+  updatePaciente,
+  deletePaciente,
+};

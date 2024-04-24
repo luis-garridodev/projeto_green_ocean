@@ -2,16 +2,17 @@ const {
   countPaciente,
   getPacienteById,
   insertPaciente,
+  updatePaciente
 } = require("../../src/repositories/paciente.repository");
- async function countPacientes(request, response) {
+async function countPacientes(request, response) {
   try {
     const pacientes = await countPaciente();
     return response.status(200).send({ pacientes });
   } catch (error) {
-    console.log(error);
+    return response.status(400).send(error);
   }
 }
- async function insertPacientes(request, response) {
+async function insertPacientes(request, response) {
   const { nome, idade, cpf, data_de_nascimento, numero_de_associacao } =
     request.body;
   try {
@@ -25,11 +26,11 @@ const {
 
     return response.status(200).send(pacientescreated);
   } catch (error) {
-    console.log(error);
+    return response.status(400).send(error);
   }
 }
 
- async function updatePacientes(request, response) {
+async function updatePacientes(request, response) {
   const { nome, idade, cpf, data_de_nascimento, numero_de_associacao } =
     request.body;
   const { id } = request.params;
@@ -46,10 +47,10 @@ const {
 
     return response.status(200).send(pacientescupdated);
   } catch (error) {
-    console.log(error);
+    return response.status(400).send(error);
   }
 }
- async function deletePacientes(request, response) {
+async function deletePacientes(request, response) {
   const { id } = request.params;
   try {
     const getpaciente = await getPacienteById({ id: parseInt(id) });
@@ -64,8 +65,13 @@ const {
 
     return response.status(200).send(pacientedeleted);
   } catch (error) {
-    console.log(error);
+    return response.status(400).send(error);
   }
 }
 
-module.exports={countPacientes,insertPacientes,updatePacientes,deletePacientes}
+module.exports = {
+  countPacientes,
+  insertPacientes,
+  updatePacientes,
+  deletePacientes,
+};

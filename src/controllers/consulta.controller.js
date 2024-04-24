@@ -1,13 +1,12 @@
-
 const {
   countconsulta,
   getConsultaById,
   insertConsulta,
   updateConsulta,
   deleteConsulta,
-} =require( "../repositories/consulta.repository");
+} = require("../repositories/consulta.repository");
 
- async function countConsultas(Request, response) {
+async function countConsultas(Request, response) {
   try {
     const consultas = await countconsulta();
     return response.status(200).send({ consultas });
@@ -15,7 +14,7 @@ const {
     console.log(error);
   }
 }
- async function insertConsultas(Request, response) {
+async function insertConsultas(Request, response) {
   const {
     paciente,
     paciente_id,
@@ -43,7 +42,7 @@ const {
     console.log(error);
   }
 }
- async function updateConsultas(request, response) {
+async function updateConsultas(request, response) {
   const { id } = request.params;
   const {
     paciente,
@@ -75,7 +74,7 @@ const {
   }
 }
 
- async function deleteConsultas(request, response) {
+async function deleteConsultas(request, response) {
   const { id } = request.params;
 
   try {
@@ -96,4 +95,9 @@ const {
     console.log(error);
   }
 }
-module.exports={countConsultas,insertConsultas,updateConsultas,deleteConsultas}
+module.exports = {
+  countConsultas,
+  insertConsultas,
+  updateConsultas,
+  deleteConsultas,
+};

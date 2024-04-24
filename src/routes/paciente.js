@@ -9,7 +9,7 @@ const {
 const routes = Router();
 routes.get("/", countPacientes);
 routes.post("/create", insertPacientes);
-routes.put("/update", updatePacientes);
+routes.put("/update/:id", updatePacientes);
 routes.put("/delete", deletePacientes);
 
 module.exports={ routes };
