@@ -14,6 +14,7 @@ async function countPacientes(request, response) {
   }
 }
 async function insertPacientes(request, response) {
+  console.log(request.body)
   const { nome, idade, cpf, data_de_nascimento, numero_de_associacao } =
     request.body;
   try {

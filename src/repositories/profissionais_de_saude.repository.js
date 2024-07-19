@@ -16,10 +16,12 @@ async function insertProfissional({
   idade,
   cpf,
   data_de_nascimento,
+  identificador,
   tipo_de_identificador,
   especialidade,
 }) {
   return await prismaclient.profissionais_de_saude.create({
+    data:{
     nome: nome,
     idade: idade,
     cpf: cpf,
@@ -27,6 +29,7 @@ async function insertProfissional({
     identificador: identificador,
     tipo_de_identificador: tipo_de_identificador,
     especialidade: especialidade,
+    }
   });
 }
 async function updateProfissional({

@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: true,
+    origin: '*',
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: [
       "Content-Type",

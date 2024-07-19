@@ -16,22 +16,26 @@ async function countProfissionals(request, response) {
 }
 async function insertProfissionals(request, response) {
   const {
+    cpf,
     nome,
     idade,
-    cpf,
     data_de_nascimento,
+    identificador,
     tipo_de_identificador,
     especialidade,
   } = request.body;
+  console.log(request.body)
   try {
     const profissionais = await insertProfissional({
       nome,
       idade,
       cpf,
       data_de_nascimento,
+      identificador,
       tipo_de_identificador,
       especialidade,
     });
+    console.log(request.body)
     return response.status(200).send(profissionais);
   } catch (error) {
     return response.status(400).send(error);
