@@ -14,7 +14,7 @@ datasource db {
 }
 
 model profissionais_de_saude {
-  id                    Int        @id @default(autoincrement())
+  id                    Int              @id @default(autoincrement())
   nome                  String
   idade                 String
   cpf                   String
@@ -22,10 +22,11 @@ model profissionais_de_saude {
   identificador         String
   tipo_de_identificador String
   especialidade         String
-  created_at            DateTime   @default(now())
-  updated_at            DateTime   @updatedAt
+  created_at            DateTime         @default(now())
+  updated_at            DateTime         @updatedAt
   deleted_at            DateTime?
   consulta              consulta[]
+  acompanhamento        acompanhamento[]
 }
 
 model paciente {
@@ -39,7 +40,8 @@ model paciente {
   updated_at           DateTime  @updatedAt
   deleted_at           DateTime?
 
-  consulta consulta[]
+  consulta       consulta[]
+  acompanhamento acompanhamento[]
 }
 
 model consulta {
@@ -55,4 +57,32 @@ model consulta {
   created_at            DateTime               @default(now())
   updated_at            DateTime               @updatedAt
   deleted_at            DateTime?
+}
+
+model acompanhamento {
+  id                     Int                      @id @default(autoincrement())
+  paciente               paciente                 @relation(fields: [paciente_id], references: [id])
+  paciente_id            Int
+  profissional_de_saude  profissionais_de_saude   @relation(fields: [profissional_id], references: [id])
+  profissional_id        Int
+  estado                 String
+  receitas               String
+  status                 String
+  observacoes            String
+  contato                String
+  numero_contato         String
+  numero_parente         String
+  created_at             DateTime                 @default(now())
+  updated_at             DateTime                 @updatedAt
+  deleted_at             DateTime?
+  agenda_de_medicamentos agenda_de_medicamentos[]
+}
+
+model agenda_de_medicamentos {
+  id                 Int            @id @default(autoincrement())
+  acompanhamento     acompanhamento @relation(fields: [acompanhamento_id], references: [id])
+  acompanhamento_id  Int
+  medicamento_do_dia String
+  hora_marcada       String
+  alarme             DateTime
 }

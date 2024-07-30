@@ -9,10 +9,9 @@ async function getConsultaById({ id }) {
   });
 }
 async function insertConsulta({
-  id,
-  paciente,
+ 
   paciente_id,
-  profissional_de_saude,
+ 
   profissional_id,
   data_hora_consulta,
   data_finalizacao,
@@ -21,10 +20,10 @@ async function insertConsulta({
 }) {
   return await prismaclient.consulta.create({
     data: {
-      id: id,
-      paciente: paciente,
+      
+     
       paciente_id: paciente_id,
-      profissional_de_saude: profissional_de_saude,
+     
       profissional_id: profissional_id,
       data_hora_consulta: data_hora_consulta,
       data_finalizacao: data_finalizacao,
@@ -45,7 +44,7 @@ async function updateConsulta({
   url_consulta,
 }) {
   return await deletePacienteprismaclient.consulta.update({
-    id: id,
+    where: { id },
     paciente: paciente,
     paciente_id: paciente_id,
     profissional_de_saude: profissional_de_saude,

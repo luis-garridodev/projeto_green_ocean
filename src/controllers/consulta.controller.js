@@ -29,11 +29,11 @@ async function insertConsultas(Request, response) {
   try {
     const consultas = await insertConsulta({
       paciente,
-      paciente_id,
+      paciente_id:parseInt(paciente_id),
       profissional_de_saude,
-      profissional_id,
-      data_hora_consulta,
-      data_finalizacao,
+      profissional_id:parseInt( profissional_id),
+      data_hora_consulta:new Date(data_hora_consulta),
+      data_finalizacao:new Date(data_finalizacao),
       local_consulta,
       url_consulta,
     });
