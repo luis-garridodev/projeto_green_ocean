@@ -8,6 +8,7 @@ const {
 async function countPacientes(request, response) {
   try {
     const pacientes = await countPaciente();
+    console.log(pacientes)
     return response.status(200).send({ pacientes });
   } catch (error) {
     return response.status(400).send(error);

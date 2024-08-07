@@ -85,4 +85,7 @@ model agenda_de_medicamentos {
   medicamento_do_dia String
   hora_marcada       String
   alarme             DateTime
+  created_at         DateTime       @default(now())
+  updated_at         DateTime       @updatedAt @default(now())
+  deleted_at         DateTime?
 }
