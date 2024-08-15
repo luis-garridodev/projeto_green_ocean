@@ -27,6 +27,7 @@ model profissionais_de_saude {
   deleted_at            DateTime?
   consulta              consulta[]
   acompanhamento        acompanhamento[]
+  calendario            calendario[]
 }
 
 model paciente {
@@ -40,8 +41,9 @@ model paciente {
   updated_at           DateTime  @updatedAt
   deleted_at           DateTime?
 
-  consulta       consulta[]
-  acompanhamento acompanhamento[]
+  consulta            consulta[]
+  acompanhamento      acompanhamento[]
+  calendario_paciente calendario_paciente[]
 }
 
 model consulta {
@@ -86,6 +88,26 @@ model agenda_de_medicamentos {
   hora_marcada       String
   alarme             DateTime
   created_at         DateTime       @default(now())
-  updated_at         DateTime       @updatedAt @default(now())
+  updated_at         DateTime       @default(now()) @updatedAt
   deleted_at         DateTime?
+}
+
+model calendario {
+  id                    Int                    @id @default(autoincrement())
+  profissional_de_saude profissionais_de_saude @relation(fields: [profissional_id], references: [id])
+  profissional_id       Int
+  emocao                Int
+  created_at            DateTime               @default(now())
+  updated_at            DateTime               @default(now()) @updatedAt
+  deleted_at            DateTime?
+}
+
+model calendario_paciente {
+  id          Int       @id @default(autoincrement())
+  paciente    paciente  @relation(fields: [paciente_id], references: [id])
+  paciente_id Int
+  emocao      Int
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+  deleted_at  DateTime?
 }
